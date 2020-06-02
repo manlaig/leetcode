@@ -31,3 +31,8 @@ void merge(std::vector<int>& nums1, int m, std::vector<int>& nums2, int n)
         nums1[i+m] = nums2[i];
     std::sort(nums1.begin(), nums1.end());
 }
+
+int main()
+{
+    
+}
