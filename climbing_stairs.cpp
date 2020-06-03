@@ -9,6 +9,10 @@
 
 int climbStairs(int n, std::map<int, int>& m)
 {
+    /*
+        This algorithm is currently at both O(n) time and space
+        The most efficient algorithm for this is O(logn) time O(1) space
+    */
     if(n == 0)
         return 1;
     if(n < 0)
