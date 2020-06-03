@@ -21,6 +21,9 @@ void deleteNode(ListNode* node)
         1->2->3->5->6->7
         
     */
+   
+    /*
+    // 1st option
     while(node->next->next)
     {
         node->val = node->next->val;
@@ -28,6 +31,18 @@ void deleteNode(ListNode* node)
     }
     node->val = node->next->val;
     node->next = 0;
+    */
+
+    // 2nd option
+    ListNode* prev = node;
+    while(node->next)
+    {
+        // to access node->next->val, loop condition must be node->next
+        node->val = node->next->val;
+        prev = node;
+        node = node->next;
+    }
+    prev->next = 0;
 }
 
 int main()
