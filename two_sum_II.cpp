@@ -1,6 +1,13 @@
 #include <iostream>
 #include <vector>
 
+/*
+    NOTE: you can use a hash map to also get a O(NlogN) solution
+    you can also use a fixed-size array to achieve O(N) solution, but use O(n) memory
+    
+    I used the above 2 techniques a lot, so I experimented with a different approach
+*/
+
 // this solution has good and bad sides
 // in the worst case (when all elements are same), it runs SLOWER than the brute force approach
 // in most cases, all elements aren't same, so we can say it's runtime is amortized O(NlogN)
