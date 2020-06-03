@@ -1,5 +1,11 @@
 #include <vector>
 
+/*
+    I learned this kind of approach from Kadane's algorithm
+    But, in this case, we keep an array storing "what's the lowest price UP UNTIL day i"
+    It can be either prices[i] OR arr[i-1]
+*/
+
 int maxProfit(std::vector<int>& prices)
 {
     if(!prices.size())
