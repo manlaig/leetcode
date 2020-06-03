@@ -3,10 +3,11 @@
 
 /*
     I will soon write a faster algorithm for this problem
-    Currently, it's O(2^n), I just love recursive algorithms that I chose to do it this way
+    Currently, it's O(n), I just love recursive algorithms that I chose to do it this way
+    I used Dynamic Programming, so that's why it's not O(2^n) even though it looks like that.
 */
 
-int helper(int n, std::map<int, int>& m)
+int climbStairs(int n, std::map<int, int>& m)
 {
     if(n == 0)
         return 1;
@@ -14,19 +15,14 @@ int helper(int n, std::map<int, int>& m)
         return 0;
     if(m.find(n) != m.end())
         return m[n];
-    m[n] = helper(n-1, m) + helper(n-2, m);
+    m[n] = climbStairs(n-2, m) + climbStairs(n-1, m);
     return m[n];
-}
-
-int climbStairs(int n)
-{
-    std::map<int, int> m;
-    return helper(n, m);
 }
 
 int main()
 {
-    std::cout << climbStairs(2) << std::endl;
-    std::cout << climbStairs(34) << std::endl;
-    std::cout << climbStairs(45) << std::endl;
+    std::map<int, int> m;
+    std::cout << climbStairs(2, m) << std::endl;
+    std::cout << climbStairs(34, m) << std::endl;
+    std::cout << climbStairs(45, m) << std::endl;
 }
