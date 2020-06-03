@@ -19,6 +19,11 @@ int height(TreeNode* root)
 
 bool isBalanced(TreeNode* root)
 {
+    /*
+        Possible improvement: we do unnecessary work when we calculate the height,
+        we're ALREADY visiting every node with isBalanced, so we can calculate
+        height(root->left) through calling isBalanced(root->left)
+    */
     if(!root)
         return true;
     int diff = std::abs(height(root->left) - height(root->right));
