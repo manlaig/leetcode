@@ -9,6 +9,8 @@ struct ListNode
 
 ListNode* removeElements(ListNode* head, int val)
 {
+    // We advance walk in the else case only, cause if there's 2 elements both with val in a row,
+    // then advancing walk would SKIP it
     ListNode** walk = &head;
     while(*walk)
     {
