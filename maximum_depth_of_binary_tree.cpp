@@ -12,7 +12,7 @@ struct TreeNode
 
 /*
     This is a slow solution, I might update my solution later.
-    I'm thinking of making of iterative
+    I'm thinking of making it iterative
 */
 
 int maxDepth(TreeNode* root, int depth = 0)
@@ -24,5 +24,5 @@ int maxDepth(TreeNode* root, int depth = 0)
 
 int main()
 {
-    
+
 }
