@@ -11,11 +11,7 @@ struct TreeNode
     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
 
-/*
-    This is a slow solution, I might update my solution later.
-    I'm thinking of making it iterative
-*/
-
+// this approach uses tree recursion
 int maxDepth_recur(TreeNode* root, int depth = 0)
 {
     if(!root)
@@ -23,9 +19,12 @@ int maxDepth_recur(TreeNode* root, int depth = 0)
     return std::max(maxDepth_recur(root->left, depth + 1), maxDepth_recur(root->right, depth + 1));
 }
 
+// this approach uses DFS
 int maxDepth_iter(TreeNode* root, int depth = 0)
 {
     int max = 0;
+
+    // s stores a pointer and how far deep it has gone so far (current depth at that node)
     std::stack<std::pair<TreeNode*, int> > s;
     if(root)
         s.push(std::make_pair(root, 1));
@@ -39,6 +38,7 @@ int maxDepth_iter(TreeNode* root, int depth = 0)
             s.push(std::make_pair(p.first->left, p.second + 1));
         if(p.first->right)
             s.push(std::make_pair(p.first->right, p.second + 1));
+        // this condition being true means the above 2 is false
         if(!p.first->left && !p.first->right && p.second > max)
             max = p.second;
     }
