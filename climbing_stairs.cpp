@@ -8,6 +8,9 @@
     
     Update: I moved from using maps to unordered_maps, now the algorithm beats 100% of C++ submissions in runtime.
     But, it's terrible in memory usage. So, I'll move to an iterative approach
+
+    Update: I implemented an iterative solution and it's not much different in terms of memory usage.
+    I think the call stacks didn't take much memory after all.
 */
 
 int climbStairs(int n, std::unordered_map<int, int>& m)
@@ -25,6 +28,22 @@ int climbStairs(int n, std::unordered_map<int, int>& m)
     m[n] = climbStairs(n-2, m) + climbStairs(n-1, m);
     return m[n];
 }
+
+/*
+    looks like a fibonacci series, isn't it? I was surprised as well.
+*/
+int climbStairs_iter(int n)
+{
+    std::unordered_map<int, int> m;
+    m[1] = 1;
+    m[2] = 2;
+
+    for(int i = 3; i <= n; i++)
+        m[i] = m[i-1] + m[i-2];
+    return m[n];    // ways to reach 4 steps
+}
+
+
 
 int main()
 {
