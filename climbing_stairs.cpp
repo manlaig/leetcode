@@ -1,13 +1,16 @@
 #include <iostream>
-#include <map>
+#include <unordered_map>
 
 /*
     I will soon write a faster algorithm for this problem
     Currently, it's O(n), I just love recursive algorithms that I chose to do it this way
     I used Dynamic Programming, so that's why it's not O(2^n) even though it looks like that.
+    
+    Update: I moved from using maps to unordered_maps, now the algorithm beats 100% of C++ submissions in runtime.
+    But, it's terrible in memory usage. So, I'll move to an iterative approach
 */
 
-int climbStairs(int n, std::map<int, int>& m)
+int climbStairs(int n, std::unordered_map<int, int>& m)
 {
     /*
         This algorithm is currently at both O(n) time and space
@@ -25,7 +28,7 @@ int climbStairs(int n, std::map<int, int>& m)
 
 int main()
 {
-    std::map<int, int> m;
+    std::unordered_map<int, int> m;
     std::cout << climbStairs(2, m) << std::endl;
     std::cout << climbStairs(34, m) << std::endl;
     std::cout << climbStairs(45, m) << std::endl;
