@@ -10,6 +10,12 @@ struct TreeNode
     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
 
+/*
+    This solution uses divide and conquer
+    In each function call, we create a new node with the middle element and its
+    left branch is the height balanced tree from the left side, same for the right side
+*/
+
 TreeNode* sortedArrayToBST(std::vector<int>& nums, int start, int end)
 {
     if(start > end)
