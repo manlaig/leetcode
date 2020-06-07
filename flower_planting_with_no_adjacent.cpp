@@ -2,6 +2,7 @@
 #include <queue>
 using namespace std;
 
+//////////////////////////// Data Structures BEGIN ////////////////////////////
 struct Node
 {
     Node* next;
@@ -64,57 +65,54 @@ void Graph::addDirected(int from, int to)
     LL::addToTail(arr[from], to);
 }
 
-class Solution
+//////////////////////////// Data Structures END ////////////////////////////
+
+/*
+    Given that there's isn't an edge to itself, we don't have to keep a "visited" set
+    Then, how do we know that the algorithm will terminate?
+*/
+void bfs(vector<int>& flowers, const Graph& garden)
 {
-public:
-    
-    /*
-        Given that there's isn't an edge to itself, we don't have to keep a "visited" set
-        Then, how do we know that the algorithm will terminate?
-    */
-    void bfs(vector<int>& flowers, const Graph& garden)
+    queue<int> next;
+
+    // the graph can be disconnected, so add them all here
+    for(int i = 0; i < garden.size; i++)
+        next.push(i);
+
+    while(next.size())
     {
-        queue<int> next;
+        int i = next.front();
+        next.pop();
 
-        // the graph can be disconnected, so add them all here
-        for(int i = 0; i < garden.size; i++)
-            next.push(i);
-
-        while(next.size())
+        // looping through all neighbors of i
+        Node* head = garden.arr[i];
+        while(head)
         {
-            int i = next.front();
-            next.pop();
-
-            // looping through all neighbors of i
-            Node* head = garden.arr[i];
-            while(head)
+            if(flowers[head->val] == flowers[i])
             {
-                if(flowers[head->val] == flowers[i])
-                {
-                    flowers[head->val] = flowers[head->val] % 4 + 1;
-                    next.push(head->val);
-                }
-                head = head->next;
+                flowers[head->val] = flowers[head->val] % 4 + 1;
+                next.push(head->val);
             }
+            head = head->next;
         }
     }
+}
 
-    vector<int> gardenNoAdj(int N, const vector<vector<int>>& paths)
-    {
-        Graph garden(N);
-        vector<int> flowers(N);
+vector<int> gardenNoAdj(int N, const vector<vector<int>>& paths)
+{
+    Graph garden(N);
+    vector<int> flowers(N);
 
-        for(int i = 0; i < N; i++)
-            flowers[i] = 1;
+    for(int i = 0; i < N; i++)
+        flowers[i] = 1;
 
-        for(const vector<int>& edge : paths)
-            garden.addUndirected(edge[0]-1, edge[1]-1);
+    for(const vector<int>& edge : paths)
+        garden.addUndirected(edge[0]-1, edge[1]-1);
 
-        bfs(flowers, garden);
+    bfs(flowers, garden);
 
-        return flowers;
-    }
-};
+    return flowers;
+}
 
 int main()
 {
