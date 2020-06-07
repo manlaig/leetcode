@@ -1,6 +1,12 @@
 #include <algorithm>
 #include <vector>
 
+/*
+    This is a greedy algorithm problem.
+    We sort the array and select the largest element for our subsequence.
+    Only selecting the largest at each step would lead to minimum sized subsequence.
+*/
+
 // compile with c++11
 std::vector<int> minSubsequence(std::vector<int>& nums)
 {
