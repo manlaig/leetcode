@@ -12,6 +12,10 @@ struct pair_hash
     }
 };
 
+/*
+    This is basically DFS, but we still loop through the whole array since the islands are disconnected
+*/
+
 int numIslands(const vector<vector<char>>& grid)
 {
     int islands = 0;
