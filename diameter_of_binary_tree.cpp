@@ -24,20 +24,40 @@ struct TreeNode
     We allocate O(logN) space because the call stack of the left branch call is destroyed before the right branch call.
 */
 
-int getHeight(TreeNode* root)
+//////////////////////////////// OLD //////////////////////////////////
+int getHeight_old(TreeNode* root)
 {
     if(!root)
         return 0;
-    return std::max(getHeight(root->left), getHeight(root->right)) + 1;
+    return std::max(getHeight_old(root->left), getHeight_old(root->right)) + 1;
+}
+
+int diameterOfBinaryTree_old(TreeNode* root)
+{
+    if(!root)
+        return 0;
+    int left = getHeight_old(root->left);
+    int right = getHeight_old(root->right);
+    return std::max(left + right, std::max(diameterOfBinaryTree(root->left), diameterOfBinaryTree(root->right)));
+}
+
+//////////////////////////////// NEW //////////////////////////////////
+int getHeight(TreeNode* root, int& most)
+{
+    if(!root)
+        return 0;
+    int l = getHeight(root->left, most);
+    int r = getHeight(root->right, most);
+    most = std::max(most, l + r);
+    return std::max(l, r) + 1;
 }
 
 int diameterOfBinaryTree(TreeNode* root)
 {
-    if(!root)
-        return 0;
-    int left = getHeight(root->left);
-    int right = getHeight(root->right);
-    return std::max(left + right, std::max(diameterOfBinaryTree(root->left), diameterOfBinaryTree(root->right)));
+    int most = 0;
+    if(root)
+        getHeight(root, most);
+    return most;
 }
 
 int main()
