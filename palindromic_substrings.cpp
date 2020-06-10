@@ -1,6 +1,13 @@
 #include <iostream>
 #include <string>
 
+/*
+    This solution is called "Expand around center", it is efficient than generating all substrings
+    The below 2 helper functions count how many odd and even palindromes exists that start at start
+
+    The fastest algorithm for this problem is called the Manacher's algorithm
+*/
+
 int palindromeEven(const std::string& s, int start)
 {
     int i = start+1;
