@@ -24,7 +24,8 @@ int kadanes(std::vector<int> arr)
     for(int i = 1; i < arr.size(); i++)
     {
         best = std::max(best + arr[i], arr[i]);
-        largest = std::max(largest, best);
+        if(best > largest)
+            largest = best;
     }
     return largest;
 }
