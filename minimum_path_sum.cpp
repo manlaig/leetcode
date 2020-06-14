@@ -1,5 +1,10 @@
 #include <vector>
 
+/*
+    This solution uses DP. The approach is as follows:
+    At i,j calculate the minimum path to reach it. That is arr[i][j] plus the minimum of reaching i-1,j or i,j-1
+*/
+
 int minPathSum(const std::vector<std::vector<int>>& grid)
 {
     if(grid.size() == 0)
