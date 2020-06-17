@@ -1,5 +1,11 @@
 #include <vector>
 
+/*
+    This solution is O(1) space and O(n) time.
+    This is a very useful technique for coming up with O(1) space solutions when you are
+    given that the array values are 1 <= arr[i] <= arr.size() or something similar
+*/
+
 std::vector<int> findDuplicates(std::vector<int>& nums)
 {
     std::vector<int> out;
