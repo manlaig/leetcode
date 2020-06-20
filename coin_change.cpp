@@ -4,9 +4,7 @@
 #include <vector>
 using namespace std;
 
-/*
-    A much faster algorithm compared to the below other ones
-*/
+// A much faster algorithm compared to the below other ones
 int coinChange_iter_DP(vector<int>& coins, int amount)
 {
     int dp[amount+1];
@@ -29,7 +27,7 @@ int coinChange_iter_DP(vector<int>& coins, int amount)
 int coinChange(vector<int>& coins, int amount)
 {
     unordered_map<int,int> dp;
-    
+
     sort(coins.begin(), coins.end());
     for(int i = 0; i <= amount; i++)
     {
@@ -39,8 +37,9 @@ int coinChange(vector<int>& coins, int amount)
         {
             if(dp.find(left) != dp.end() && dp[left] != -1)
             {
+                // count holds the number of changes we made so far4 
                 dp[i] = count + dp[left];
-                left = 0;
+                left = 0;   // cuz of the if(left) below
                 break;
             }
             
@@ -49,12 +48,13 @@ int coinChange(vector<int>& coins, int amount)
                 dp[i] = count;
                 break;
             }
-            else if(coins[j] <= left && left - coins[j] >= 0 && coins[j] > 0)
+            else if(coins[j] <= left && coins[j] > 0)
             {
                 count++;
                 left -= coins[j];
             }
             else
+            // decrement if we can't use coins[j] anymore, cuz coins[j] > left
                 j--;
         }
         if(left)
