@@ -4,6 +4,28 @@
 #include <vector>
 using namespace std;
 
+/*
+    A much faster algorithm compared to the below other ones
+*/
+int coinChange_iter_DP(vector<int>& coins, int amount)
+{
+    int dp[amount+1];
+    dp[0] = 0;
+    
+    for(int i = 1; i <= amount; i++)
+    {
+        dp[i] = 0;
+        int count = INT_MAX;
+        for(int val : coins)
+        {
+            if(i - val >= 0 && dp[i - val] != -1)
+                count = min(dp[i - val], count);
+        }
+        dp[i] = count == INT_MAX ? -1 : count+1;
+    }
+    return dp[amount];
+}
+
 int coinChange(vector<int>& coins, int amount)
 {
     unordered_map<int,int> dp;
