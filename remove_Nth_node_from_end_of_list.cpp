@@ -7,6 +7,9 @@ struct ListNode
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
 
+// the idea is that we have 1 pointer ahead of the other one by 1 nodes
+// when the leading one reaches the end, then 
+// it means that the other one is at the Nth node from the end
 ListNode* removeNthFromEnd(ListNode* head, int n)
 {
     if(!head || n <= 0)
