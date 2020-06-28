@@ -1,4 +1,5 @@
 #include <unordered_map>
+#include <algorithm>
 #include <vector>
 #include <string>
 
@@ -6,6 +7,8 @@ int longestStrChain(std::vector<std::string>& words)
 {
     if(!words.size())
         return 0;
+        
+    std::sort(words.begin(), words.end(), [](std::string s1, std::string s2) { return s1.size() < s2.size(); });
     // dp[i] = length of string chain ending at i
     std::unordered_map<std::string, int> dp;
     dp[words[0]] = 1;
