@@ -4,6 +4,13 @@ int maxProduct(std::vector<int>& nums)
 {
     if(!nums.size())
         return 0;
+
+    /*
+        Since multiplying, we need to keep track of both smallest and largest
+        The smallest value can become the largest if multiplied by a negative
+        In that case, then update the largest by the smallest * arr[i]
+    */
+
     int l = nums[0];
     int s = nums[0];
     int out = nums[0];
