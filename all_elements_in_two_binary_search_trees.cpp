@@ -1,5 +1,5 @@
-#include <algorithm>
 #include <vector>
+using namespace std;
 
 struct TreeNode
 {
@@ -20,16 +20,37 @@ void inorder(TreeNode* root, vector<int>& arr)
     inorder(root->right, arr);
 }
 
-std::vector<int> getAllElements(TreeNode* root1, TreeNode* root2)
+vector<int> merge(const vector<int>& a1, const vector<int>& a2)
 {
-    std::vector<int> arr;
+    vector<int> out;
+    out.reserve(a1.size() + a2.size());
+    
+    int i1 = 0, i2 = 0;
+    while(i1 < a1.size() && i2 < a2.size())
+    {
+        if(a1[i1] < a2[i2])
+            out.push_back(a1[i1++]);
+        else
+            out.push_back(a2[i2++]);
+    }
+    while(i1 < a1.size())
+        out.push_back(a1[i1++]);
+    while(i2 < a2.size())
+        out.push_back(a2[i2++]);
+    
+    return out;
+}
+
+vector<int> getAllElements(TreeNode* root1, TreeNode* root2)
+{
+    vector<int> arr, arr2;
     arr.reserve(25);
+    arr2.reserve(25);
     
     inorder(root1, arr);
-    inorder(root2, arr);
+    inorder(root2, arr2);
     
-    std::sort(arr.begin(), arr.end());
-    return arr;
+    return merge(arr, arr2);
 }
 
 int main()
