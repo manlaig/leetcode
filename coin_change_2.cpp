@@ -17,14 +17,19 @@ int change(int amount, vector<int>& coins)
     {
         for(int coin = 0; coin < coins.size(); coin++)
         {
-            int t = coin-1 < 0 ? 0 : dp[i][coin-1];
+            // # of ways to change without using coins[coin]
+            // if coin = 0, then you can't change with an empty set
+            // in that case, # of ways is 0 otherwise dp[i][coin-1]
+            int not_choose = coin == 0 ? 0 : dp[i][coin-1];
             if(i - coins[coin] >= 0)
-                dp[i][coin] = dp[i-coins[coin]][coin] + t;
+            // you can change using the current coin or by skipping it
+                dp[i][coin] = dp[i-coins[coin]][coin] + not_choose;
             else
-                dp[i][coin] = t;
+                dp[i][coin] = not_choose;
         }
     }
     
+    // # of ways of changing 'amount' by using first coins.size() coins
     return dp[amount][coins.size()-1];
 }
 
