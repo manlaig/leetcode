@@ -1,6 +1,11 @@
 #include <algorithm>
 #include <vector>
 
+/*
+    In this problem, we want to pick the people that have the biggest difference in their flight costs to A and B
+    The bigger the difference, the more important that we pick the cheaper ticket for that person
+*/
+
 // compile with -std=c++11
 int twoCitySchedCost(std::vector<std::vector<int>>& costs)
 {

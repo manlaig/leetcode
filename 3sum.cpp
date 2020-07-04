@@ -7,7 +7,7 @@
 using namespace std;
 
 // time limit exceeded
-vector<vector<int>> threeSum(vector<int>& nums)
+vector<vector<int>> threeSum(const vector<int>& nums)
 {
     map<int, int> s;
     for(int num : nums)
