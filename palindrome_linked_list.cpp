@@ -30,6 +30,33 @@ bool isPalindrome(ListNode* head)
     return true;
 }
 
+// you can also create a new list, which is the reverse of the original
+// and check if each element matches
+bool isPalindrome_reverse(ListNode* head)
+{
+    if(!head || !head->next)
+        return true;
+    ListNode *rev = new ListNode(head->val, head->next), *prev = 0;
+    
+    while(rev)
+    {
+        ListNode* temp = rev->next;
+        rev->next = prev;
+        prev = rev;
+        rev = temp;
+        if(temp)
+            rev = new ListNode(temp->val, temp->next);
+    }
+    while(prev && head)
+    {
+        if(prev->val != head->val)
+            return false;
+        prev = prev->next;
+        head = head->next;
+    }
+    return true;
+}
+
 int main()
 {
 
