@@ -4,6 +4,38 @@
 #include <vector>
 using namespace std;
 
+// a different way of doing DP, somehow it's slower that the other iterative DP solution
+// which I think is very weird since both are very similar
+int coinChange_forward_DP(vector<int>& coins, long long amount)
+{
+    if(!amount)
+        return 0;
+    if(!coins.size() || amount < 0)
+        return -1;
+    vector<int> dp(amount+1);
+
+    // initialize which amounts can be changed by the coins
+    for(int coin : coins)
+        if(coin <= amount)
+            dp[coin]++;
+
+    for(int i = 1; i <= amount; i++)
+    {
+        // if it can be changed by the coins
+        if(dp[i])
+        {
+            // leetcode has a stupid test case with INT_MAX, so I cast it to int64
+            for(long long coin : coins)
+            {
+                coin += i;
+                if(coin <= amount)
+                    dp[coin] = min(dp[coin] ? dp[coin] : INT_MAX, 1 + dp[i]);
+            }
+        }
+    }
+    return dp[amount] ? dp[amount] : -1;
+}
+
 // A much faster algorithm compared to the below other ones
 int coinChange_iter_DP(vector<int>& coins, int amount)
 {
