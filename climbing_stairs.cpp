@@ -1,3 +1,4 @@
+#include <vector>
 #include <iostream>
 #include <unordered_map>
 
@@ -43,7 +44,18 @@ int climbStairs_iter(int n)
     return m[n];    // ways to reach 4 steps
 }
 
-
+int climbStairs_forward_DP(int n)
+{
+    std::vector<long long> dp(n+3);
+    dp[0] = 1LL;
+    
+    for(int i = 0; i <= n; i++)
+    {
+        dp[i+1] += dp[i];
+        dp[i+2] += dp[i];
+    }
+    return dp[n];
+}
 
 int main()
 {
