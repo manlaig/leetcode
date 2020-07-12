@@ -2,9 +2,18 @@
 #include <vector>
 using namespace std;
 
+/*
+    The classic 0/1 knapsack problem is similar to the coin change problem
+    in its DP relation.
+    For each item, we can either take it, reduce the weight, and plus the solution
+    to the subproblem, "what's most value you can get from the new reduced weight?"
+    Or, we can not use the current item in the bag and ask the question
+    "what's the most value you got from the previous item using your current weight?"
+*/
+
 int knapsack(int w, vector<pair<int,int>> bag)
 {
-    // dp[i][w] = the maximum value with weight w of getting item at i
+    // dp[i][w] = the maximum value possible with weight w of getting item at i
     vector<vector<int>> dp(bag.size(), vector<int>(w+1));
 
     for(int i = 0; i <= w; i++)
