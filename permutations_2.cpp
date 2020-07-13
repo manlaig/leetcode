@@ -34,7 +34,7 @@ vector<vector<int>> permuteUnique(vector<int>& nums)
     
     vector<vector<int>> out(unique.size());
     int i = 0;
-    for(auto& vec : unique)
+    for(const vector<int>& vec : unique)
     {
         out[i++] = move(vec);
     }
