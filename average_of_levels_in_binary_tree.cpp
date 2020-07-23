@@ -12,32 +12,32 @@ struct TreeNode
     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
  
-void helper(TreeNode* root, int depth, unordered_map<int, vector<int>>& vals)
+using LL = long long;
+
+void helper(TreeNode* root, int depth, unordered_map<int, pair<LL,int>>& vals)
 {
     if(!root)
         return;
-    vals[depth].push_back(root->val);
+    pair<LL,int> temp = vals[depth];
+    vals[depth] = make_pair(temp.first + root->val, temp.second + 1);
     helper(root->left, depth+1, vals);
     helper(root->right, depth+1, vals);
 }
 
 vector<double> averageOfLevels(TreeNode* root)
 {
-    unordered_map<int, vector<int>> vals;
+    unordered_map<int, pair<LL, int>> vals;
     helper(root, 0, vals);
     
     vector<double> out(vals.size());
     for(const auto& p : vals)
     {
-        double sum = 0;
-        for(int num : p.second)
-            sum += num;
-        out[p.first] = sum / p.second.size();
+        out[p.first] = p.second.first / (double) p.second.second;
     }
     return out;
 }
 
 int main()
 {
-    
+
 }
