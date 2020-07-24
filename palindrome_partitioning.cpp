@@ -28,7 +28,7 @@ void palindrome_even(unordered_map<int, vector<int>>& dp, string s, int i)
     }
 }
 
-void fill(string s, vector<vector<string>>& out, unordered_map<int, vector<int>>& dp, int i, vector<string> next)
+void fill(string s, vector<vector<string>>& out, unordered_map<int, vector<int>>& dp, int i, vector<string>& next)
 {
     if(i >= s.size())
     {
@@ -53,7 +53,8 @@ vector<vector<string>> partition(string s)
         palindrome_even(dp, s, i);
     }
     vector<vector<string>> out;
-    fill(s, out, dp, 0, {});
+    vector<string> tmp;
+    fill(s, out, dp, 0, tmp);
     return out;
 }
 
