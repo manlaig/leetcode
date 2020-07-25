@@ -13,7 +13,7 @@ std::vector<std::vector<std::string>> groupAnagrams(std::vector<std::string>& st
     {
         std::string sorted = str;
         std::sort(sorted.begin(), sorted.end());
-        m[sorted].push_back(str);
+        m[sorted].push_back(move(str));
     }
     
     int i = 0;
