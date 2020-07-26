@@ -6,8 +6,53 @@
 #include <map>
 using namespace std;
 
+// accepted, but slow
+namespace std {
+    template <>
+    struct hash<std::vector<int>>
+    {
+        size_t operator()(const vector<int>& v) const
+        {
+                std::hash<int> hasher;
+            size_t seed = 0;
+            for (int i : v)
+                seed ^= hasher(i) + 0x9e3779b9 + (seed<<6) + (seed>>2);
+            return seed;
+        }
+    };
+}
+
+vector<vector<int>> threeSum(vector<int>& nums)
+{
+    if(nums.size() < 3)
+        return {};
+    vector<vector<int>> out;
+    unordered_set<vector<int>> unique;
+    
+    sort(nums.begin(), nums.end());
+    
+    for(int i = 0; i < nums.size()-2; i++)
+    {
+        int left = i+1;
+        int right = nums.size()-1;
+        while(left < right)
+        {
+            if(nums[i] + nums[left] + nums[right] == 0)
+                unique.insert({nums[i], nums[left++], nums[right--]});
+            else if(nums[i] + nums[left] + nums[right] > 0)
+                right--;
+            else
+                left++;
+        }
+    }
+    out.reserve(unique.size());
+    for(auto vec : unique)
+        out.emplace_back(move(vec));
+    return out;
+}
+
 // time limit exceeded
-vector<vector<int>> threeSum(const vector<int>& nums)
+vector<vector<int>> threeSum_slow(const vector<int>& nums)
 {
     map<int, int> s;
     for(int num : nums)
