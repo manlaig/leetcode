@@ -2,6 +2,54 @@
 #include <vector>
 using namespace std;
 
+// Solution 5 (Solution 4 optimized)
+bool canPartition_1D_optimized(const vector<int>& nums)
+{
+    if(!nums.size() || nums.size() == 1)
+        return false;
+    
+    int sum = 0;
+    for(int num : nums)
+        sum += num;
+    
+    if(sum % 2)
+        return false;
+    
+    sum /= 2;
+    
+    // from solution 3, we can see that we only need the values from 
+    // the last row, so we can reduce a 2D table to 1D
+    // last[sum] = can partition sum using elements up to i
+    vector<bool> last(sum+1);
+    
+    for(int i = 0; i < nums.size(); i++)
+    {
+        /*
+            if we start from 0, then the test [1,2,5] fails because
+            it allows using the same element twice because we access dp[num-nums[i]]
+            in other words, we're accessing elements in our current row
+
+            so we start from the right side because we don't access elements to the right
+        */
+        for(int num = sum; num >= 0; num--)
+        {
+            if(num == 0)
+            {
+                last[num] = true;
+            }
+            else if(i == 0)
+            {
+                last[num] = num - nums[i] == 0;
+            }
+            else if(num - nums[i] >= 0)
+            {
+                last[num] = last[num] || last[num-nums[i]];
+            }
+        }
+    }
+    return last[sum];
+}
+
 // Solution 4
 bool canPartition_1D(const vector<int>& nums)
 {
