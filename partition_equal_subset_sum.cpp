@@ -2,6 +2,48 @@
 #include <vector>
 using namespace std;
 
+// Solution 3, faster and space efficient than solution 1
+bool canPartition(const vector<int>& nums)
+{
+    if(!nums.size() || nums.size() == 1)
+        return false;
+    
+    int sum = 0;
+    for(int num : nums)
+        sum += num;
+    
+    if(sum % 2)
+        return false;
+    
+    sum /= 2;
+    
+    // dp[i][sum] = can partition sum using elements up to i
+    vector<vector<bool>> dp(nums.size(), vector<bool>(sum+1));
+    
+    for(int i = 0; i < nums.size(); i++)
+    {
+        for(int num = 0; num <= sum; num++)
+        {
+            if(num == 0)
+            {
+                dp[i][num] = true;
+            }
+            else if(i == 0)
+            {
+                dp[i][num] = num - nums[i] == 0;
+            }
+            else
+            {
+                if(num - nums[i] < 0)
+                    dp[i][num] = dp[i-1][num];
+                else
+                    dp[i][num] = dp[i-1][num] || dp[i-1][num-nums[i]];
+            }
+        }
+    }
+    return dp[nums.size()-1][sum];
+}
+
 // Solution 1
 bool canPartition(const vector<int>& nums)
 {
@@ -39,7 +81,7 @@ bool canPartition(const vector<int>& nums)
     return false;
 }
 
-// Solution 2
+// Solution 2, time limit exceed since it explores 2^n possibilities
 bool canPartition_dfs(const vector<int>& nums)
 {
     if(!nums.size() || nums.size() == 1)
