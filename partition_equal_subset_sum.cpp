@@ -2,8 +2,54 @@
 #include <vector>
 using namespace std;
 
+// Solution 4
+bool canPartition_1D(const vector<int>& nums)
+{
+    if(!nums.size() || nums.size() == 1)
+        return false;
+    
+    int sum = 0;
+    for(int num : nums)
+        sum += num;
+    
+    if(sum % 2)
+        return false;
+    
+    sum /= 2;
+    
+    // from solution 3, we can see that we only need the values from 
+    // the last row, so we can reduce a 2D table to 1D
+    // last[sum] = can partition sum using elements up to i
+    vector<bool> last(sum+1);
+    vector<bool> curr(sum+1);
+    
+    for(int i = 0; i < nums.size(); i++)
+    {
+        for(int num = 0; num <= sum; num++)
+        {
+            if(num == 0)
+            {
+                curr[num] = true;
+            }
+            else if(i == 0)
+            {
+                curr[num] = num - nums[i] == 0;
+            }
+            else
+            {
+                if(num - nums[i] < 0)
+                    curr[num] = last[num];
+                else
+                    curr[num] = last[num] || last[num-nums[i]];
+            }
+        }
+        last = curr;
+    }
+    return curr[sum];
+}
+
 // Solution 3, faster and space efficient than solution 1
-bool canPartition(const vector<int>& nums)
+bool canPartition_2D(const vector<int>& nums)
 {
     if(!nums.size() || nums.size() == 1)
         return false;
@@ -45,7 +91,7 @@ bool canPartition(const vector<int>& nums)
 }
 
 // Solution 1
-bool canPartition(const vector<int>& nums)
+bool canPartition_slow(const vector<int>& nums)
 {
     if(!nums.size() || nums.size() == 1)
         return false;
