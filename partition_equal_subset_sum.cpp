@@ -2,7 +2,8 @@
 #include <vector>
 using namespace std;
 
-bool canPartition(vector<int>& nums)
+// Solution 1
+bool canPartition(const vector<int>& nums)
 {
     if(!nums.size() || nums.size() == 1)
         return false;
@@ -36,6 +37,38 @@ bool canPartition(vector<int>& nums)
         }
     }
     return false;
+}
+
+// Solution 2
+bool canPartition_dfs(const vector<int>& nums)
+{
+    if(!nums.size() || nums.size() == 1)
+        return false;
+    
+    int sum = 0;
+    for(int num : nums)
+        sum += num;
+    
+    if(sum % 2)
+        return false;
+    
+    sum /= 2;
+    
+    std::function<bool(int, int)> dfs = [&](int left, int i)
+    {
+        if(left == 0)
+            return true;
+        bool found = false;
+        for(int curr = i+1; curr < nums.size(); curr++)
+        {
+            if(left - nums[curr] >= 0)
+                found |= dfs(left - nums[curr], curr);
+            if(found)
+                return true;
+        }
+        return false;
+    };
+    return dfs(sum, 0);
 }
 
 int main()
