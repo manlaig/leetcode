@@ -1,37 +1,26 @@
 #include <string>
+#include <stack>
 
-int longestValidParentheses(const std::string& s)
+/*
+There's an edge case to this problem for cases like ()() and (()()
+We want to somehow store a buffer for how long the sequence is so far
+*/
+int longestValidParentheses(std::string s)
 {
-    int curr = 0;
-    int start = 0;
+    std::stack<int> parans;
+    parans.push(-1);
     int out = 0;
-    int peak = 0;
-    
     for(int i = 0; i < s.size(); i++)
     {
         if(s[i] == '(')
-        {
-            curr++;
-            peak++;
-        }
+            parans.push(i);
         else
         {
-            curr--;
-            if(curr > 0)
-                out = std::max(out, (peak - curr)*2);
-            peak--;
-        }
-        
-        if(curr < 0)
-        {
-            start = i+1;
-            peak = 0;
-            curr = 0;
-        }
-        else if(curr == 0)
-        {
-            out = std::max(out, i - start + 1);
-            peak = 0;
+            parans.pop();
+            if(parans.empty())
+                parans.push(i);
+            else
+                out = std::max(out, i - parans.top());
         }
     }
     return out;
