@@ -5,6 +5,27 @@ int findMaxLength(std::vector<int>& nums)
 {
     if(!nums.size())
         return 0;
+    std::unordered_map<int, int> sum;
+    sum[0] = -1;
+    int total = 0;
+    int max = 0;
+    
+    for(int i = 0; i < nums.size(); i++)
+    {
+        total += nums[i] ? 1 : -1;
+        if(sum.find(total) == sum.end())
+            sum[total] = i;
+        else
+            max = std::max(max, i - sum[total]);
+    }
+    
+    return max;
+}
+
+int findMaxLength_slow(std::vector<int>& nums)
+{
+    if(!nums.size())
+        return 0;
     std::vector<int> sum(nums.size());
     sum[0] = nums[0] ? 1 : -1;
     
