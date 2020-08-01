@@ -1,9 +1,9 @@
 #include <vector>
-#include <map>
+#include <unordered_map>
 
 bool containsNearbyDuplicate(std::vector<int>& nums, int k)
 {
-    std::map<int, int> m;
+    std::unordered_map<int, int> m;
     for(int i = 0; i < nums.size(); i++)
     {
         if(m.find(nums[i]) != m.end() && std::abs(m[nums[i]] - i) <= k)
