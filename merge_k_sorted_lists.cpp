@@ -9,17 +9,10 @@ struct ListNode
     ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
 
-void add(ListNode*& head, int val)
-{
-    ListNode** walk = &head;
-    while(*walk)
-        walk = &((*walk)->next);
-    *walk = new ListNode(val);
-}
-
 ListNode* mergeKLists(std::vector<ListNode*>& lists)
 {
     ListNode* out = 0;
+    ListNode** last = &out;
     int k = lists.size();
     
     while(1)
@@ -35,7 +28,9 @@ ListNode* mergeKLists(std::vector<ListNode*>& lists)
         }
         if(min)
         {
-            add(out, (*min)->val);
+            auto temp = new ListNode((*min)->val);
+            *last = temp;
+            last = &((*last)->next);
             *min = (*min)->next;
         }
         else
