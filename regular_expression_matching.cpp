@@ -12,12 +12,17 @@ struct Type
     char val = 0;
 };
 
-bool check(const string& s, const vector<Type>& p, int i, int p_i)
+bool check(const string& s, const vector<Type>& p, int i = 0, int p_i = 0)
 {
+    // both the pattern and the string are empty
     if(i >= s.size() && p_i >= p.size())
         return true;
+
+    // only the pattern has finished, they are remaining chars that're unmatched
     if(p_i >= p.size())
         return false;
+
+    // if the string is empty, then stars can be interpreted as empty chars
     if(i >= s.size())
     {
         while(p_i < p.size())
@@ -55,11 +60,13 @@ bool isMatch(string s, string p)
             if(i+1 < p.size() && p[i+1] == '*')
             {
                 pattern.push_back({true, true, 0});
+                // skip the * at i+1
                 i++;
             }
             else
                 pattern.push_back({false, true, 0});
         }
+        // * can't be at 
         else
         {
             if(i+1 < p.size() && p[i+1] == '*')
@@ -72,7 +79,7 @@ bool isMatch(string s, string p)
         }
     }
     
-    return check(s, pattern, 0, 0);
+    return check(s, pattern);
 }
 
 int main()
