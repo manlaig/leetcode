@@ -18,8 +18,8 @@ int maxProduct(std::vector<int>& nums)
     for(int i = 1; i < nums.size(); i++)
     {
         int temp = l;
-        l = std::max(std::max(l * nums[i], s * nums[i]), nums[i]);
-        s = std::min(std::min(temp * nums[i], s * nums[i]), nums[i]);
+        l = std::max({ l * nums[i], s * nums[i], nums[i] });
+        s = std::min({ temp * nums[i], s * nums[i], nums[i] });
         out = std::max(out, l);
     }
     return out;
