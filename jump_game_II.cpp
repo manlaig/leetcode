@@ -1,5 +1,11 @@
 #include <vector>
 
+/*
+    At i = 0, end is nums[0], when end = nums[nums[0]],
+    bound will be the farthest possible reach between
+    i = 0 and i = nums[0]
+*/
+
 int jump(const std::vector<int>& nums)
 {
     if(nums.size() == 1)
