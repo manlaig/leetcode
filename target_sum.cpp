@@ -70,7 +70,9 @@ int findTargetSumWays_slow(vector<int>& nums, int S)
     if(!nums.size())
         return 0;
     unordered_map<int, int> dp[nums.size()];
-    dp[0][nums[0]] += 1;
+
+    // when nums[0] = 0, there's 2 ways to get 0, so use += 
+    dp[0][nums[0]] = 1;
     dp[0][-nums[0]] += 1;
     
     for(int i = 1; i < nums.size(); i++)
