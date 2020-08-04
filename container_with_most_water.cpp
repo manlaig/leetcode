@@ -1,5 +1,12 @@
 #include <vector>
 
+/*
+    This is kind of similar to how the TwoSum problem is solved.
+    We start with 2 bounds, compute a potential answer in each iteration
+    and choose the side that can lead to a larger output.
+    So, it's a greedy algorithm in that way
+*/
+
 int maxArea(std::vector<int>& arr)
 {
     int out = 0;
