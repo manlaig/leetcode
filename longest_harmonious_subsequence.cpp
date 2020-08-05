@@ -21,6 +21,54 @@ int findLHS(const std::vector<int>& nums)
     return most;
 }
 
+// slower solution I implemented after a while since my first implementation
+struct Sequence
+{
+    int size;
+    int max;
+    int min;
+    
+    Sequence() : size(0), max(INT_MIN), min(INT_MAX) {}
+};
+
+int findLHS_slow(const std::vector<int>& nums)
+{
+    // dp[num].first = length of sequence for num+1
+    // dp[num].second = length of sequence for num-1
+    std::unordered_map<int, std::pair<Sequence, Sequence>> dp;
+    int out = 0;
+    for(int num : nums)
+    {
+        auto& seq = dp[num];
+        seq.first.size++;
+        seq.first.max = std::max(seq.first.max, num);
+        seq.first.min = std::min(seq.first.min, num);
+        seq.second.size++;
+        seq.second.max = std::max(seq.second.max, num);
+        seq.second.min = std::min(seq.second.min, num);
+        
+        auto& seq2 = dp[num-1];
+        seq2.first.size++;
+        seq2.first.max = std::max(seq2.first.max, num);
+        seq2.first.min = std::min(seq2.first.min, num);
+        
+        auto& seq3 = dp[num+1];
+        seq3.second.size++;
+        seq3.second.max = std::max(seq3.second.max, num);
+        seq3.second.min = std::min(seq3.second.min, num);
+
+        if(seq.first.max != seq.first.min)
+            out = std::max(out, seq.first.size);
+        if(seq.second.max != seq.second.min)
+            out = std::max(out, seq.second.size);
+        if(seq2.first.max != seq2.first.min)
+            out = std::max(out, seq2.first.size);
+        if(seq3.second.max != seq3.second.min)
+            out = std::max(out, seq3.second.size);
+    }
+    return out;
+}
+
 int main()
 {
 
