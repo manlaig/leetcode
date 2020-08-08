@@ -1,7 +1,8 @@
 """
-    This solution uses Divide and Conquer, similar to merge sort
-    Time Complexity: O(NlogN)
-    Space Complexity: 
+    This solution uses Divide and Conquer, very similar to quick sort
+    Time Complexity: O(NlogN) in average and O(N^2) in the worst case
+    Space Complexity: The worst can happen in situations like 1[2[3[4[5[6[a]]]]]]
+    So, the upper bound of the space complexity is O(N/2)
 """
 
 def getFactor(s, start, end):
