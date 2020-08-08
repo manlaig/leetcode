@@ -1,8 +1,49 @@
+#include <vector>
 #include <map>
 using namespace std;
 
+// Adding: O(N)
+// Median: O(1)
+class MedianFinder_sort
+{
+    vector<int> arr;
+    
+    void insertion_sort()
+    {
+        if(arr.size() <= 1)
+            return;
+        int i = arr.size()-1;
+        int j = i-1;
+        while(j >= 0 && arr[i] < arr[j])
+        {
+            swap(arr[i], arr[j]);
+            i = j--;
+        }
+    }
+    
+public:
+    /** initialize your data structure here. */
+    MedianFinder_sort()
+    {
+        arr.reserve(100);
+    }
+    
+    void addNum(int num)
+    {
+        arr.push_back(num);
+        insertion_sort();
+    }
+    
+    double findMedian()
+    {
+        int n = arr.size();
+        int mid = n / 2;
+        return n % 2 ? arr[mid] : (arr[mid-1] + arr[mid]) / 2.;
+    }
+};
+
 // Adding: O(logN)
-// Lookup: O(N/2)
+// Median: O(N/2)
 class MedianFinder_slow
 {
     map<int, int> s;
