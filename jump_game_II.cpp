@@ -1,6 +1,9 @@
 #include <vector>
 
 /*
+    An important observation here to make is that we "jump"
+    whenever we hit the farthest bound, meaning that we another jump.
+    
     At i = 0, end is nums[0], when end = nums[nums[0]],
     bound will be the farthest possible reach between
     i = 0 and i = nums[0]
