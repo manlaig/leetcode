@@ -1,7 +1,20 @@
 #include <vector>
 using namespace std;
 
-int change(int amount, vector<int>& coins)
+int change_1D(int amount, const vector<int>& coins)
+{
+    vector<int> dp(amount+1);
+    dp[0] = 1;
+
+    // the order of the loops matter here    
+    for(int j = 0; j < coins.size(); j++)
+        for(int i = 1; i <= amount; i++)
+            dp[i] = (i-coins[j] >= 0 ? dp[i-coins[j]] : 0) + (j>0 ? dp[i] : 0);
+
+    return dp[amount];
+}
+
+int change_2D(int amount, const vector<int>& coins)
 {
     if(!amount)
         return 1;
