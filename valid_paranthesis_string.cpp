@@ -4,6 +4,28 @@
 
 bool checkValidString(std::string s)
 {
+    int bal = 0;
+    int stars = 0;
+    for(int i = 0; i < s.size(); i++)
+    {
+        if(s[i] == '(' || s[i] == '*')
+            bal++;
+        else if(--bal < 0)
+            return false;
+    }
+    bal = 0;
+    for(int i = s.size() - 1; i >= 0; i--)
+    {
+        if(s[i] == ')' || s[i] == '*')
+            bal++;
+        else if(--bal < 0)
+            return false;
+    }
+    return bal >= 0;
+}
+
+bool checkValidString_DP(std::string s)
+{
     if(!s.size())
         return true;
     std::vector<std::unordered_set<int>> dp(s.size());
