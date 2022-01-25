@@ -2,7 +2,6 @@
 
 bool checkPossibility(const std::vector<int>& nums)
 {
-    if(nums.size() <= 2)
     {
         return true;
     }
